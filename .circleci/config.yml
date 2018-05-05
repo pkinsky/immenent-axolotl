@@ -2,21 +2,22 @@ version: 2
 jobs:
   build:
     docker:
-      - image: debian:stretch
+      - image: pkinsky:imminent-axolotl
     steps:
       # TODO: it would be great if this were baked into a container..
-      - run:
-          name: Get dependencies
-          command: |
-            apt-get update
-            apt-get install -y git wget
-            wget -qO- https://get.haskellstack.org/ | sh
-      - checkout
+      # - run:
+      #     name: Get dependencies
+      #     command: |
+      #       apt-get update
+      #       apt-get install -y git wget
+      #       wget -qO- https://get.haskellstack.org/ | sh
+      # - checkout
       - run:
           name: Build project
           command: |
             pushd site
             stack build
+            stack exec site build
             popd
       - run:
           name: Print the Current Time
