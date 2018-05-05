@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: pkinsky:imminent-axolotl
     steps:
-      # TODO: it would be great if this were baked into a container..
+      # TODO: it would be great if this were baked into a container.. now it is hashtag lmao, hope circleci caches it and doesn't derp out b/c it's approx 3.5GB
       # - run:
       #     name: Get dependencies
       #     command: |
