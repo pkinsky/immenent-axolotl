@@ -10,6 +10,8 @@ jobs:
           #todo: feels hacky needing to set LANG like this here
           command: |
             pushd site
+            find -i about.rst
+            cat about.rst
             LANG=en_US.UTF-8 stack build
             LANG=en_US.UTF-8 stack exec site build
             popd
