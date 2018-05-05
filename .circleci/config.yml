@@ -7,10 +7,11 @@ jobs:
       - checkout
       - run:
           name: Build project
+          #todo: feels hacky needing to set LANG like this here
           command: |
             pushd site
-            stack build
-            stack exec site build
+            LANG=en_US.UTF-8 stack build
+            LANG=en_US.UTF-8 stack exec site build
             popd
       - run:
           name: Print the Current Time
