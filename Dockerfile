@@ -1,5 +1,7 @@
 FROM debian:stretch
 
+# build container for circleci
+
 RUN apt-get update && \
     apt-get install -y git wget unzip && \
     wget -qO- https://get.haskellstack.org/ | sh

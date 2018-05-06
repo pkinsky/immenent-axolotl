@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Build project, use project to build site artifacts
+          name: Build project, use project to build static site artifacts
           command: |
             pushd site
             stack build
@@ -45,9 +45,6 @@ jobs:
           # todo: better description
           name: run AWS deploy script
           command: |
-            pwd
-            ls -al
-
 
             timestamp=`date '+%Y_%m_%d__%H_%M_%S'`
             S3Bucket="imminent-axolotl"
