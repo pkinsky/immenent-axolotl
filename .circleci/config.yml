@@ -6,14 +6,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Build project
-          #todo: feels hacky needing to set LANG like this here
+          name: Build project, use project to build site artifacts
           command: |
             pushd site
-            ls -altrh
-            cat about.rst
-            LANG=en_US.UTF-8 stack build
-            LANG=en_US.UTF-8 stack exec site build
+            stack build
+            stack exec site build
             popd
       - run:
           name: Print the Current Time
