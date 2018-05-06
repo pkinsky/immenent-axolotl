@@ -12,9 +12,14 @@ jobs:
             stack build
             stack exec site build
             popd
-      - run:
-          name: Print the Current Time
-          command: date
+            cp -r site/_site aws-code-deploy
+
+      #store revision in cache for use by deploy step of same workflow
+      - save_cache:
+          key: revision-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - "aws-code-deploy"
+
 
   deploy-job:
     docker:
@@ -28,12 +33,19 @@ jobs:
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
             ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+
+
+      # grab cached static site (build artifacts)
+      - restore_cache:
+          keys:
+            - revision-{{ .Branch }}-{{ .Revision }}
+
       - run:
           name: run AWS deploy script
           command: |
             pwd
             ls -al
-            ./aws-deploy-script
+            ./aws-deploy-script aws-code-deploy
 
 
 
