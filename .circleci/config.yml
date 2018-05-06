@@ -61,6 +61,7 @@ jobs:
 
             aws deploy create-deployment --application-name imminent-axolotl \
               --s3-location bucket=$S3Bucket,key=$S3Key,bundleType=zip \
+              --load-balancer-info elbInfoList=[imminent-axolotl],targetGroupInfoList=[imminent-axolotl] \
               --deployment-group-name imminent-axolotl-fleet --description "lorem ipsum"
 
 
