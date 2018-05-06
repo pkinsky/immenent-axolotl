@@ -30,7 +30,10 @@ jobs:
             ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
       - run:
           name: run AWS deploy script
-          command: aws-deploy-script
+          command: |
+            pwd
+            ls -al
+            ./aws-deploy-script
 
 
 
