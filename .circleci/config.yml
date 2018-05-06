@@ -35,13 +35,14 @@ jobs:
             ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 
 
-      # grab cached static site (build artifacts)
+      # grab cached static site (build artifacts), could also be used to pass along binaries
       - restore_cache:
           keys:
             - revision-{{ .Branch }}-{{ .Revision }}
 
       - run:
-          #inline aws deploy script, this way no need for checkout for this job
+          # inline aws deploy script, this way no need for checkout for this job
+          # todo: better description
           name: run AWS deploy script
           command: |
             pwd
@@ -76,7 +77,6 @@ workflows:
       - deploy-job:
           requires:
             - build-job
-          # commented out for testing
-          # filters:
-          #   branches:
-          #     only: master
+          filters:
+            branches:
+              only: master
