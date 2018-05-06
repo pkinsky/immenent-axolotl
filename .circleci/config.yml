@@ -1,0 +1,79 @@
+version: 2
+jobs:
+  build-job:
+    docker:
+      - image: pkinsky/circleci:imminent-axolotl
+    steps:
+      - checkout
+      - run:
+          name: Build project, use project to build static site artifacts
+          command: |
+            pushd site
+            stack build
+            stack exec site build
+            popd
+            cp -r site/_site aws-code-deploy
+
+      #store revision in cache for use by deploy step of same workflow
+      - save_cache:
+          key: revision-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - "aws-code-deploy"
+
+
+  deploy-job:
+    docker:
+      - image: pkinsky/circleci:imminent-axolotl
+    steps:
+      - run:
+          name: get AWS cli tools
+          command: |
+            apt-get update
+            apt-get install -y curl unzip python
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            unzip awscli-bundle.zip
+            ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+
+
+      # grab cached static site (build artifacts), could also be used to pass along binaries
+      - restore_cache:
+          keys:
+            - revision-{{ .Branch }}-{{ .Revision }}
+
+      - run:
+          # inline aws deploy script, this way no need for checkout for this job
+          # todo: better description
+          name: run AWS deploy script
+          command: |
+
+            timestamp=`date '+%Y_%m_%d__%H_%M_%S'`
+            S3Bucket="imminent-axolotl"
+            S3Key="revisions/imminent-axolotl-app-$timestamp.zip"
+            S3Loc="s3://$S3Bucket/$S3Key"
+
+
+            aws deploy push \
+              --application-name imminent-axolotl \
+              --description "This is a revision for the application imminent-axolotl created at $timestamp" \
+              --ignore-hidden-files \
+              --s3-location $S3Loc \
+              --source aws-code-deploy
+
+            aws deploy create-deployment --application-name imminent-axolotl \
+              --s3-location bucket=$S3Bucket,key=$S3Key,bundleType=zip \
+              --deployment-group-name imminent-axolotl-fleet --description "lorem ipsum"
+
+
+
+version: 2
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build-job
+      - deploy-job:
+          requires:
+            - build-job
+          filters:
+            branches:
+              only: master

@@ -1,0 +1,49 @@
+#!/bin/sh
+
+# script to package generated _site file from hakyll project in /site to aws via codedeploy
+# convenience tool for local use only, actual deploy is inlined in .circleci/config.yml
+
+
+set -e
+# Any subsequent(*) commands which fail will cause the shell script to exit immediately
+
+set -x
+# log all cmds
+
+# set up vars
+
+timestamp=`date '+%Y_%m_%d__%H_%M_%S'`
+S3Bucket="imminent-axolotl"
+S3Key="revisions/imminent-axolotl-app-$timestamp.zip"
+S3Loc="s3://$S3Bucket/$S3Key"
+
+
+
+# set up deploy dir
+
+# first confirm that site has been build, else fail
+if [ ! -d site/_site ]; then
+  echo "ERROR: site has not yet been built, site/_site dir not found (run stack exec site build)"
+  exit 1 # terminate and indicate error
+fi
+
+# delete old _site file, if any
+if [ -d aws-code-deploy/_site ]; then
+  rm -r aws-code-deploy/_site
+fi
+
+cp -r site/_site aws-code-deploy
+
+# bundle up zip and publish as revision
+
+aws deploy push \
+  --application-name imminent-axolotl \
+  --description "This is a revision for the application imminent-axolotl created at $timestamp" \
+  --ignore-hidden-files \
+  --s3-location $S3Loc \
+  --source aws-code-deploy
+
+
+# create deployment from revision
+
+aws deploy create-deployment --application-name imminent-axolotl --s3-location bucket=$S3Bucket,key=$S3Key,bundleType=zip --deployment-group-name imminent-axolotl-fleet --description "lorem ipsum"
