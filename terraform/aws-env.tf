@@ -157,12 +157,6 @@ resource "aws_codedeploy_deployment_group" "example" {
     elb_info {
       name = "${aws_lb.example.name}"
     }
-    /*
-    nope, wrong thing here
-    target_group_info {
-      name = "${aws_lb_target_group.example.name}"
-    }
-    */
   }
 }
 
@@ -173,9 +167,6 @@ resource "aws_instance" "example-1" {
   instance_type = "t1.micro"
 
   vpc_security_group_ids    = ["${aws_security_group.example.id}"]
-
-  #todo: maybe not required
-  #subnet_id = // first from list of id's
 
 
   # needed, probably, for s3 access
@@ -211,9 +202,6 @@ resource "aws_instance" "example-2" {
 
   vpc_security_group_ids    = ["${aws_security_group.example.id}"]
 
-  #todo: maybe not required
-  #subnet_id = // first from list of id's
-
   provisioner "remote-exec" {
     inline = [
       "sudo yum -y update",
@@ -241,30 +229,6 @@ resource "aws_instance" "example-2" {
     Name = "imminent-axolotl-tf"
   }
 }
-
-/*
-hitting instance limit of 6 with 3x here plus 3
-resource "aws_instance" "example-3" {
-  ami           = "ami-1b3b462b"
-  instance_type = "t1.micro"
-
-  vpc_security_group_ids    = ["${aws_security_group.example.id}"]
-
-  #todo: maybe not required
-  #subnet_id = // first from list of id's
-
-
-  # needed, probably, for s3 access
-  iam_instance_profile = "${aws_iam_instance_profile.cd-instance-profile.name}"
-
-
-
-  tags {
-    Name = "imminent-axolotl-tf"
-  }
-}
-*/
-
 
 
 resource "aws_lb" "example" {
@@ -330,7 +294,7 @@ resource "aws_security_group" "example" {
   }
 }
 
-
+# TODO: create this inline instead of hardcoding as default?
 variable "vpc_id" {
   description = "magic value for vpc id"
   default = "vpc-0d2a0374"
@@ -344,27 +308,3 @@ data "aws_vpc" "main" {
 data "aws_subnet_ids" "example" {
   vpc_id = "${var.vpc_id}"
 }
-
-/*
-can't get this to work, fuck trying to understand cidr
-TODO: revist after vpc is included in terraform creation
-resource "aws_subnet" "subnet-a" {
-  vpc_id     = "${data.aws_vpc.main.id}"
-  availability_zone = "us-west-2a"
-  cidr_block = "172.31.2.0/16"
-
-  tags {
-    Name = "A"
-  }
-}
-
-resource "aws_subnet" "subnet-c" {
-  vpc_id     = "${data.aws_vpc.main.id}"
-  availability_zone = "us-west-2a"
-  cidr_block = "172.31.4.0/16"
-
-  tags {
-    Name = "C"
-  }
-}
-*/
