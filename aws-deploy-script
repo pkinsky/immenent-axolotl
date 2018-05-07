@@ -37,7 +37,7 @@ cp -r site/_site aws-code-deploy
 # bundle up zip and publish as revision
 
 aws deploy push \
-  --application-name imminent-axolotl \
+  --application-name imminent-axolotl-tf \
   --description "This is a revision for the application imminent-axolotl created at $timestamp" \
   --ignore-hidden-files \
   --s3-location $S3Loc \
@@ -46,4 +46,4 @@ aws deploy push \
 
 # create deployment from revision
 
-aws deploy create-deployment --application-name imminent-axolotl --s3-location bucket=$S3Bucket,key=$S3Key,bundleType=zip --deployment-group-name imminent-axolotl-fleet --description "lorem ipsum"
+aws deploy create-deployment --application-name imminent-axolotl-tf --s3-location bucket=$S3Bucket,key=$S3Key,bundleType=zip --deployment-group-name imminent-axolotl-tf --description "lorem ipsum v2 bb"
