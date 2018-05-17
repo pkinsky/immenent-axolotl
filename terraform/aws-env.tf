@@ -196,39 +196,39 @@ resource "aws_instance" "example-1" {
   }
 }
 
-resource "aws_instance" "example-2" {
-  ami           = "ami-1b3b462b"
-  instance_type = "t1.micro"
+# resource "aws_instance" "example-2" {
+#   ami           = "ami-1b3b462b"
+#   instance_type = "t1.micro"
 
-  vpc_security_group_ids    = ["${aws_security_group.example.id}"]
+#   vpc_security_group_ids    = ["${aws_security_group.example.id}"]
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo yum -y update",
-      "sudo yum -y install ruby",
-      "sudo yum -y install wget",
-      "wget https://aws-codedeploy-us-west-2.s3.amazonaws.com/latest/install",
-      "chmod +x install",
-      "sudo ./install auto"
-    ]
+#   provisioner "remote-exec" {
+#     inline = [
+#       "sudo yum -y update",
+#       "sudo yum -y install ruby",
+#       "sudo yum -y install wget",
+#       "wget https://aws-codedeploy-us-west-2.s3.amazonaws.com/latest/install",
+#       "chmod +x install",
+#       "sudo ./install auto"
+#     ]
 
-    connection {
-      type     = "ssh"
-      user     = "ec2-user"
-      private_key =  "${file("/home/pk/dev/keys/imminent-axolotl.pem")}"
-    }
-  }
+#     connection {
+#       type     = "ssh"
+#       user     = "ec2-user"
+#       private_key =  "${file("/home/pk/dev/keys/imminent-axolotl.pem")}"
+#     }
+#   }
 
 
-  # needed, probably, for s3 access
-  iam_instance_profile = "${aws_iam_instance_profile.cd-instance-profile.name}"
+#   # needed, probably, for s3 access
+#   iam_instance_profile = "${aws_iam_instance_profile.cd-instance-profile.name}"
 
-  key_name = "imminent-axolotl"
+#   key_name = "imminent-axolotl"
 
-  tags {
-    Name = "imminent-axolotl-tf"
-  }
-}
+#   tags {
+#     Name = "imminent-axolotl-tf"
+#   }
+# }
 
 
 resource "aws_lb" "example" {
@@ -249,11 +249,11 @@ resource "aws_lb_target_group" "example" {
 }
 
 
-resource "aws_lb_target_group_attachment" "example-2" {
-  target_group_arn = "${aws_lb_target_group.example.arn}"
-  target_id        = "${aws_instance.example-2.id}"
-  port             = 80
-}
+# resource "aws_lb_target_group_attachment" "example-2" {
+#   target_group_arn = "${aws_lb_target_group.example.arn}"
+#   target_id        = "${aws_instance.example-2.id}"
+#   port             = 80
+# }
 
 resource "aws_lb_target_group_attachment" "example-1" {
   target_group_arn = "${aws_lb_target_group.example.arn}"
