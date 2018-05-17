@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /_site
-    destination: /var/www/html/
+    destination: /opt/lamassu-lifeboat
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies

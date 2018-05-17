@@ -163,8 +163,8 @@ resource "aws_codedeploy_deployment_group" "example" {
 
 # basically just cargo culted from demo example created stuff
 resource "aws_instance" "example-1" {
-  ami           = "ami-1b3b462b"
-  instance_type = "t1.micro"
+  ami           = "ami-fde96b9d"
+  instance_type = "t2.micro"
 
   vpc_security_group_ids    = ["${aws_security_group.example.id}"]
 
@@ -172,11 +172,12 @@ resource "aws_instance" "example-1" {
   # needed, probably, for s3 access
   iam_instance_profile = "${aws_iam_instance_profile.cd-instance-profile.name}"
 
+  # TODO: currently manually scp'd keter over
   provisioner "remote-exec" {
     inline = [
-      "sudo yum -y update",
-      "sudo yum -y install ruby",
-      "sudo yum -y install wget",
+      "sudo apt-get -y update",
+      "sudo apt-get -y install ruby",
+      "sudo apt-get -y install wget",
       "wget https://aws-codedeploy-us-west-2.s3.amazonaws.com/latest/install",
       "chmod +x install",
       "sudo ./install auto"
@@ -184,7 +185,7 @@ resource "aws_instance" "example-1" {
 
     connection {
       type     = "ssh"
-      user     = "ec2-user"
+      user     = "admin"
       private_key =  "${file("/home/pk/dev/keys/imminent-axolotl.pem")}"
     }
   }
