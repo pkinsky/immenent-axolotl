@@ -14,7 +14,7 @@ jobs:
             popd
             pushd lamassu-lifeboat
             stack build
-            #whoops, yesod not on path. TODO: rebuild w/ it on path
+            #whoops, yesod not on path in docker img. TODO: rebuild w/ it on path
             /root/.local/bin/yesod keter
             mv lamassu-lifeboat.keter ../aws-code-deploy/lamassu-lifeboat.keter
             popd
@@ -77,6 +77,6 @@ workflows:
       - deploy-job:
           requires:
             - build-job
-          # filters:
-          #   branches:
-          #     only: master
+          filters:
+            branches:
+              only: master
