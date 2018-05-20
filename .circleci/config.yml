@@ -16,7 +16,7 @@ jobs:
             stack build
             #whoops, yesod not on path. TODO: rebuild w/ it on path
             /root/.local/bin/yesod keter
-            mv lamassu-lifeboat.keter ../aws-code-deploy/lamssu-lifeboat.keter
+            mv lamassu-lifeboat.keter ../aws-code-deploy/lamassu-lifeboat.keter
             popd
             ls -al aws-code-deploy
 
