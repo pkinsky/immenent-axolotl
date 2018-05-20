@@ -1,9 +1,0 @@
-#!/bin/bash
-
-#todo: use keter
-
-#make double sure pkill is available
-yum install -y proctools
-
-#kill process if running
-sudo pkill -f formation-connect-exe || true

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-cd /opt/lamassu-lifeboat
-nohup sudo /opt/lamassu-lifeboat/lamassu-lifeboat  >/run.out 2>/run.err &
-disown

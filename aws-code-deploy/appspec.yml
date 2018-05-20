@@ -2,4 +2,4 @@ version: 0.0
 os: linux
 files:
   - source: /lamassu-lifeboat.keter
-    destination: /var/www/keter/incoming/lamassu-lifeboat.keter
+    destination: /var/www/keter/incoming
