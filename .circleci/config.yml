@@ -18,6 +18,7 @@ jobs:
             /root/.local/bin/yesod keter
             mv lamassu-lifeboat.keter ../aws-code-deploy/lamssu-lifeboat.keter
             popd
+            ls -al aws-code-deploy
 
       #store revision in cache for use by deploy step of same workflow
       - save_cache:
@@ -54,6 +55,8 @@ jobs:
             S3Bucket="imminent-axolotl"
             S3Key="revisions/imminent-axolotl-app-$timestamp.zip"
             S3Loc="s3://$S3Bucket/$S3Key"
+
+            ls -al aws-code-deploy
 
             aws deploy push \
               --application-name imminent-axolotl-tf \
