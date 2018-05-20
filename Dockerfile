@@ -15,6 +15,14 @@ RUN cd /site-for-prebuild && \
     stack --no-terminal --install-ghc setup && \
     stack build --no-terminal --only-dependencies
 
+COPY lamassu-lifeboat /yesod-site-for-prebuild
+
+RUN cd /yesod-site-for-prebuild && \
+    stack build --no-terminal --only-dependencies
+
+RUN cd / && \
+    stack install yesod-bin
+
 #hacky-ass UTF-8 support cargo culting follows
 RUN apt-get install -y locales
 RUN locale-gen en_US.UTF-8

@@ -19,20 +19,26 @@ S3Loc="s3://$S3Bucket/$S3Key"
 
 
 
-# set up deploy dir
-
-# first confirm that site has been build, else fail
-if [ ! -d site/_site ]; then
-  echo "ERROR: site has not yet been built, site/_site dir not found (run stack exec site build)"
-  exit 1 # terminate and indicate error
-fi
+# first draft, fragile af wrt build artifact presence
 
 # delete old _site file, if any
 if [ -d aws-code-deploy/_site ]; then
   rm -r aws-code-deploy/_site
 fi
 
-cp -r site/_site aws-code-deploy
+mkdir aws-code-deploy/_site
+
+cd lamassu-lifeboat
+stack install --local-bin-path ../aws-code-deploy/_site --copy-bins
+cp -r config ../aws-code-deploy/_site
+cp -r static ../aws-code-deploy/_site
+cd ..
+
+cd site
+stack build
+stack exec site build
+cp -r _site ../aws-code-deploy/_site/static/test
+cd ..
 
 # bundle up zip and publish as revision
 
