@@ -5,6 +5,7 @@
 # note: now running on box via deb install
 # all stuff under /var/www/keter/*
 # incoming app installs go to /var/www/keter/incoming
+# ALSO: config in /etc/keter.conf is important, has line re: IP redirect from headers that is likely required to be uncommented for this to work at all
 
 stanzas:
 

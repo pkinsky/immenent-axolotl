@@ -21,3 +21,8 @@ use actual build's status badge in post
 note: now it's all using terraform for AWS config so I don't need to write up manual steps, lel
 
 [![CircleCI](https://circleci.com/gh/pkinsky/imminent-axolotl/tree/master.svg?style=svg)](https://circleci.com/gh/pkinsky/imminent-axolotl/tree/master)
+
+
+
+
+ALSO NOW I'M USING KETER YEET YEET GOT THAT SCP STEEZ
