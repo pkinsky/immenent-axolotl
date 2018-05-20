@@ -1,6 +1,11 @@
 # A Keter app is composed of 1 or more stanzas. The main stanza will define our
 # web application. See the Keter documentation for more information on
-# available stanzas.
+# available stanzas
+
+# note: now running on box via deb install
+# all stuff under /var/www/keter/*
+# incoming app installs go to /var/www/keter/incoming
+
 stanzas:
 
   # Your Yesod application.
@@ -21,14 +26,14 @@ stanzas:
       # You can specify one or more hostnames for your application to respond
       # to. The primary hostname will be used for generating your application
       # root.
-
-      - www.hikikomorphism.com
       - hikikomorphism.com
+      - www.hikikomorphism.com
 
     # Enable to force Keter to redirect to https
     # Can be added to any stanza
     # using nonstandard value of true, #yolo
-    requires-secure: true
+    #todo reset to true
+    requires-secure: false
 
   # could maybe just delete this..
   # Static files.
