@@ -168,6 +168,7 @@ resource "aws_instance" "example-1" {
 
   vpc_security_group_ids    = ["${aws_security_group.example.id}"]
 
+
   # needed, probably, for s3 access
   iam_instance_profile = "${aws_iam_instance_profile.cd-instance-profile.name}"
 
@@ -358,3 +359,4 @@ resource "aws_route53_record" "hiki" {
 resource "aws_route53_zone" "primary" {
   name = "hikikomorphism.com"
 }
+
