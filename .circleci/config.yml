@@ -12,7 +12,12 @@ jobs:
             stack build
             stack exec site build
             popd
-            cp -r site/_site aws-code-deploy
+            pushd lamassu-lifeboat
+            stack build
+            #whoops, yesod not on path. TODO: rebuild w/ it on path
+            /root/.local/bin/yesod keter
+            mv lamassu-lifeboat.keter ../aws-code-deploy/lamssu-lifeboat.keter
+            popd
 
       #store revision in cache for use by deploy step of same workflow
       - save_cache:
@@ -42,16 +47,13 @@ jobs:
 
       - run:
           # inline aws deploy script, this way no need for checkout for this job
-          # todo: better description
+          # todo: better description, mb use script?
           name: run AWS deploy script
           command: |
-
             timestamp=`date '+%Y_%m_%d__%H_%M_%S'`
             S3Bucket="imminent-axolotl"
             S3Key="revisions/imminent-axolotl-app-$timestamp.zip"
             S3Loc="s3://$S3Bucket/$S3Key"
-
-
 
             aws deploy push \
               --application-name imminent-axolotl-tf \
@@ -75,6 +77,6 @@ workflows:
       - deploy-job:
           requires:
             - build-job
-          filters:
-            branches:
-              only: master
+          # filters:
+          #   branches:
+          #     only: master
