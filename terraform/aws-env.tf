@@ -163,16 +163,26 @@ resource "aws_codedeploy_deployment_group" "example" {
 
 # basically just cargo culted from demo example created stuff
 resource "aws_instance" "example-1" {
+<<<<<<< HEAD
   ami           = "ami-fde96b9d"
   instance_type = "t2.micro"
 
   vpc_security_group_ids    = ["${aws_security_group.example.id}"]
 
+=======
+  ami           = "ami-1b3b462b"
+  instance_type = "t1.micro"
+
+  vpc_security_group_ids    = ["${aws_security_group.example.id}"]
+
+
+>>>>>>> master
   # needed, probably, for s3 access
   iam_instance_profile = "${aws_iam_instance_profile.cd-instance-profile.name}"
 
   provisioner "remote-exec" {
     inline = [
+<<<<<<< HEAD
       "sudo apt-get -y update",
       "sudo apt-get -y install ruby",
       "sudo apt-get -y install wget",
@@ -185,11 +195,23 @@ resource "aws_instance" "example-1" {
       "rm keter.deb",
       "sudo systemctl enable keter",
       "sudo systemctl start keter"
+=======
+      "sudo yum -y update",
+      "sudo yum -y install ruby",
+      "sudo yum -y install wget",
+      "wget https://aws-codedeploy-us-west-2.s3.amazonaws.com/latest/install",
+      "chmod +x install",
+      "sudo ./install auto"
+>>>>>>> master
     ]
 
     connection {
       type     = "ssh"
+<<<<<<< HEAD
       user     = "admin"
+=======
+      user     = "ec2-user"
+>>>>>>> master
       private_key =  "${file("/home/pk/dev/keys/imminent-axolotl.pem")}"
     }
   }
@@ -201,6 +223,7 @@ resource "aws_instance" "example-1" {
   }
 }
 
+<<<<<<< HEAD
 # resource "aws_instance" "example-2" {
 #   ami           = "ami-1b3b462b"
 #   instance_type = "t1.micro"
@@ -234,6 +257,41 @@ resource "aws_instance" "example-1" {
 #     Name = "imminent-axolotl-tf"
 #   }
 # }
+=======
+resource "aws_instance" "example-2" {
+  ami           = "ami-1b3b462b"
+  instance_type = "t1.micro"
+
+  vpc_security_group_ids    = ["${aws_security_group.example.id}"]
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum -y update",
+      "sudo yum -y install ruby",
+      "sudo yum -y install wget",
+      "wget https://aws-codedeploy-us-west-2.s3.amazonaws.com/latest/install",
+      "chmod +x install",
+      "sudo ./install auto"
+    ]
+
+    connection {
+      type     = "ssh"
+      user     = "ec2-user"
+      private_key =  "${file("/home/pk/dev/keys/imminent-axolotl.pem")}"
+    }
+  }
+
+
+  # needed, probably, for s3 access
+  iam_instance_profile = "${aws_iam_instance_profile.cd-instance-profile.name}"
+
+  key_name = "imminent-axolotl"
+
+  tags {
+    Name = "imminent-axolotl-tf"
+  }
+}
+>>>>>>> master
 
 
 resource "aws_lb" "example" {
@@ -254,11 +312,19 @@ resource "aws_lb_target_group" "example" {
 }
 
 
+<<<<<<< HEAD
 # resource "aws_lb_target_group_attachment" "example-2" {
 #   target_group_arn = "${aws_lb_target_group.example.arn}"
 #   target_id        = "${aws_instance.example-2.id}"
 #   port             = 80
 # }
+=======
+resource "aws_lb_target_group_attachment" "example-2" {
+  target_group_arn = "${aws_lb_target_group.example.arn}"
+  target_id        = "${aws_instance.example-2.id}"
+  port             = 80
+}
+>>>>>>> master
 
 resource "aws_lb_target_group_attachment" "example-1" {
   target_group_arn = "${aws_lb_target_group.example.arn}"
