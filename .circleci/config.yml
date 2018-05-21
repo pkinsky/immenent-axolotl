@@ -10,7 +10,7 @@ jobs:
           command: |
             pushd site
             stack build
-            stack exec site build
+            stack exec -- site rebuild
             popd
             pushd lamassu-lifeboat
             stack build

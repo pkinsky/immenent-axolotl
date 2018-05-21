@@ -3,8 +3,6 @@ title: "Mangaing dependencies with Data.Constraint"
 tags: haskell
 ---
 
-Hakyll deployment: Github -> CircleCi -> AWS CodeDeploy
-
 Quick pitch: minimum possible specification, allows for parameterize data instances (term?) themselves over constraints instead of concrete monad stack types
 
 <!--more-->
