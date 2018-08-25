@@ -7,15 +7,10 @@ Once upon a time, I wanted to start a blog. As a gifted procrastinator with a mi
 
 <!--more-->
 
-outstanding q: wait, am I using keter here still? IIRC I did play with that a bit
-- let's try doing a test deploy and seeing what happens
 
-tldr yes but only on master
-version: 0.0
-os: linux
-files:
-  - source: /lamassu-lifeboat.keter
-    destination: /var/www/keter/incoming
+ok, so keter is on the aws box (manually tho) via this
+todo: idk, install script as part of commited code instead of this
+destination: /var/www/keter/incoming
 
 ### First, let's take a look at a high-level sketch of this setup.
 
