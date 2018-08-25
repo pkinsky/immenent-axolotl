@@ -13,7 +13,7 @@ Once upon a time, I wanted to start a blog. As a gifted procrastinator with a mi
 
 This post will take you through how I did so while also functioning as a somewhat self-deprecating monument to the developer equivalent of constantly tweaking fonts and slide change animations instead of actually working on a presentation.
 
-At this point, having still not written more than a few words of actual blog post, I tweaked various bits of CSS, Html, added https support, et cetera. Finally, having no excuse not to actually write an article I decided to start by documenting this process.
+At this point, having still not written more than a few words of actual blog post, I tweaked various bits of CSS, Html, added https support, et cetera. Finally, having no excuse not to actually write an article I decided to start by documenting the deployment process I'm using.
 
 
 ```
@@ -33,12 +33,15 @@ At this point, having still not written more than a few words of actual blog pos
 
 ## Static Content Generation
 
-`/site`
+
+`/static-content`
 
 - static content via hakyll - but this project started with a hakyll site (based on (todo link to css setup site)) and it provides a nice clean way to generate a static site.
 
 
 ## Yesod Server
+
+todo: probably rename
 
 `/lamassu-lifeboat` 
 

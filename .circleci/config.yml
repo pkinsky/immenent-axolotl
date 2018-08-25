@@ -8,11 +8,11 @@ jobs:
       - run:
           name: Build project, use project to build static site artifacts
           command: |
-            pushd site
+            pushd static-content
             stack build
             stack exec -- site rebuild
             popd
-            pushd lamassu-lifeboat
+            pushd yesod-server
             stack build
             #whoops, yesod not on path in docker img. TODO: rebuild w/ it on path
             /root/.local/bin/yesod keter
