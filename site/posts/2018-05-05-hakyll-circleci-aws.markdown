@@ -15,28 +15,52 @@ This post will take you through how I did so while also functioning as a somewha
 
 At this point, having still not written more than a few words of actual blog post, I tweaked various bits of CSS, Html, added https support, et cetera. Finally, having no excuse not to actually write an article I decided to start by documenting this process.
 
-## Github
 
-link to repo here
+```
++----------------+
+| Github         |       Infrastructure
++-------|--------+      Overview Diagram
+        |
++-------v--------+
+| CircleCI       |     +------------------+
++-------|--------+  +--> AWS EC2 Instance |
+        |           |  +------------------+
++-------v--------+  |  +------------------+
+| AWS CodeDeploy +--|--> AWS EC2 Instance |
++----------------+     +------------------+
+```
 
-describe what's actually in repo (maybe also include links to the rest of this, use this as a table of contents - no dir for keter, though - actually, I can totally just skip any keter section - only really needs a few sentences)
-
-- Static Content Generation: `/site`
-- Yesod Server:`/lamassu-lifeboat` 
-- Continuous Deployment: `/.cirleci`
-- AWS Service Configuration: `/terraform`
 
 ## Static Content Generation
 
+`/site`
+
+- static content via hakyll - but this project started with a hakyll site (based on (todo link to css setup site)) and it provides a nice clean way to generate a static site.
+
+
 ## Yesod Server
+
+`/lamassu-lifeboat` 
+
+Someday I might want to throw together some dynamic server-side content, so I host the static content generated in the previous step using Yesod, a haskell server framework that provides routing, etc, etc. It also has great integration with Keter, which I use to (descr descr)
 
 ## Continuous Deployment
 
-Of course I wouldn't want to run a bunch of commands every time I ran an update, so I used CircleCI and AWS CodeDeploy to set up automated deployments triggered by commits to the master branch. 
+`/.cirleci`
+
+I use CircleCi's Github integration to handle continuous integration and deployment. Every commit pushed to github is built. Every commmit pushed to master is built and deployed. The result of the latest build on master is displayed at the header of this page and on the github README page.
 
 ## AWS Service Configuration
 
-- AWS code deploy
+`/terraform`
+
+- The AWS resources used to deploy this website are (almost) all configured via terraform, an open source tool that lets you capture AWS service configuration as a series of declarative expressions. I love having a description of my AWS setup in code so I don't have to remember all the setup tasks, commands run, AWS GUI interactions, etc etc.
+
+TODO? better descr?
+
+Main components of the AWS setup are:
+
+- an AWS CodeDeploy application
 - used to deploy to a cluster of EC2 boxen
 - all connected to a domain I own via route 53
 
