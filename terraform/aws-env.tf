@@ -1,7 +1,16 @@
 
+terraform {
+  backend "s3" {
+    bucket = "imminent-axolotl-tf-state"
+    key    = "imminent-axolotl.tfstate"
+    region = "us-west-2"
+  }
+}
+
 provider "aws" {
   region = "us-west-2"
-  shared_credentials_file = "/home/pk/.aws/credentials"
+  shared_credentials_file = "/Users/pk/.aws/credentials"
+  #shared_credentials_file = "/home/pk/.aws/credentials"
   profile = "default"
 }
 
@@ -172,6 +181,8 @@ resource "aws_instance" "example-1" {
   # needed, probably, for s3 access
   iam_instance_profile = "${aws_iam_instance_profile.cd-instance-profile.name}"
 
+  # TODO: document this, maybe also inline in code deploy instance setup script
+  # TODO: does this work if I'm not ssh'ing into the instance and starting keter? honestly I forget if there's anything manual required here
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get -y update",
@@ -191,7 +202,9 @@ resource "aws_instance" "example-1" {
     connection {
       type     = "ssh"
       user     = "admin"
-      private_key =  "${file("/home/pk/dev/keys/imminent-axolotl.pem")}"
+      # TODO: not this - can I ref key in aws instead of local?
+      #private_key =  "${file("/home/pk/dev/keys/imminent-axolotl.pem")}"
+      private_key =  "${file("/Users/pk/dev/keys/imminent-axolotl.pem")}"
     }
   }
 
@@ -201,40 +214,6 @@ resource "aws_instance" "example-1" {
     Name = "imminent-axolotl-tf"
   }
 }
-
-# resource "aws_instance" "example-2" {
-#   ami           = "ami-1b3b462b"
-#   instance_type = "t1.micro"
-
-#   vpc_security_group_ids    = ["${aws_security_group.example.id}"]
-
-#   provisioner "remote-exec" {
-#     inline = [
-#       "sudo yum -y update",
-#       "sudo yum -y install ruby",
-#       "sudo yum -y install wget",
-#       "wget https://aws-codedeploy-us-west-2.s3.amazonaws.com/latest/install",
-#       "chmod +x install",
-#       "sudo ./install auto"
-#     ]
-
-#     connection {
-#       type     = "ssh"
-#       user     = "ec2-user"
-#       private_key =  "${file("/home/pk/dev/keys/imminent-axolotl.pem")}"
-#     }
-#   }
-
-
-#   # needed, probably, for s3 access
-#   iam_instance_profile = "${aws_iam_instance_profile.cd-instance-profile.name}"
-
-#   key_name = "imminent-axolotl"
-
-#   tags {
-#     Name = "imminent-axolotl-tf"
-#   }
-# }
 
 
 resource "aws_lb" "example" {
@@ -254,19 +233,11 @@ resource "aws_lb_target_group" "example" {
   vpc_id   = "${data.aws_vpc.main.id}"
 }
 
-
-# resource "aws_lb_target_group_attachment" "example-2" {
-#   target_group_arn = "${aws_lb_target_group.example.arn}"
-#   target_id        = "${aws_instance.example-2.id}"
-#   port             = 80
-# }
-
 resource "aws_lb_target_group_attachment" "example-1" {
   target_group_arn = "${aws_lb_target_group.example.arn}"
   target_id        = "${aws_instance.example-1.id}"
   port             = 80
 }
-
 
 resource "aws_lb_listener" "http-example" {
   load_balancer_arn = "${aws_lb.example.arn}"
