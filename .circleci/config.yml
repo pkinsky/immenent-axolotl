@@ -78,3 +78,10 @@ workflows:
       - deploy-job:
           requires:
             - build-job
+          filters:
+            branches:
+              only:
+                - master
+                # not really a live blog anyway so w/e, yolo, etc
+                # TODO: remove
+                - blog-poast

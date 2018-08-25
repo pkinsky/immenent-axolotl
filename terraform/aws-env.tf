@@ -1,4 +1,5 @@
 
+# this bucket is not configured via terraform and must be manually created.
 terraform {
   backend "s3" {
     bucket = "imminent-axolotl-tf-state"
@@ -170,6 +171,54 @@ resource "aws_codedeploy_deployment_group" "example" {
 }
 
 
+
+
+# basically just cargo culted from demo example created stuff
+resource "aws_instance" "example-2" {
+  ami           = "ami-fde96b9d"
+  instance_type = "t2.micro"
+
+  vpc_security_group_ids    = ["${aws_security_group.example.id}"]
+
+
+  # needed, probably, for s3 access
+  iam_instance_profile = "${aws_iam_instance_profile.cd-instance-profile.name}"
+
+  # TODO: document this, maybe also inline in code deploy instance setup script
+  # TODO: does this work if I'm not ssh'ing into the instance and starting keter? honestly I forget if there's anything manual required here
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get -y update",
+      "sudo apt-get -y install ruby",
+      "sudo apt-get -y install wget",
+      "wget https://aws-codedeploy-us-west-2.s3.amazonaws.com/latest/install",
+      "chmod +x install",
+      "sudo ./install auto",
+      "rm install",
+      "aws s3 cp s3://imminent-axolotl/keter.deb .",
+      "sudo dpkg -i keter.deb",
+      "rm keter.deb",
+      "sudo systemctl enable keter",
+      "sudo systemctl start keter"
+    ]
+
+    connection {
+      type     = "ssh"
+      user     = "admin"
+      # TODO: not this - can I ref key in aws instead of local?
+      #private_key =  "${file("/home/pk/dev/keys/imminent-axolotl.pem")}"
+      private_key =  "${file("/Users/pk/dev/keys/imminent-axolotl.pem")}"
+    }
+  }
+
+  key_name = "imminent-axolotl"
+
+  tags {
+    Name = "imminent-axolotl-tf"
+  }
+}
+
+
 # basically just cargo culted from demo example created stuff
 resource "aws_instance" "example-1" {
   ami           = "ami-fde96b9d"
@@ -234,6 +283,13 @@ resource "aws_lb_target_group" "example" {
 }
 
 resource "aws_lb_target_group_attachment" "example-1" {
+  target_group_arn = "${aws_lb_target_group.example.arn}"
+  target_id        = "${aws_instance.example-1.id}"
+  port             = 80
+}
+
+
+resource "aws_lb_target_group_attachment" "example-2" {
   target_group_arn = "${aws_lb_target_group.example.arn}"
   target_id        = "${aws_instance.example-1.id}"
   port             = 80

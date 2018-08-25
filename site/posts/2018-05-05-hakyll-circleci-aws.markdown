@@ -3,14 +3,26 @@ title: "Hakyll deployment: Github -> CircleCi -> AWS CodeDeploy"
 tags: haskell
 ---
 
-Once upon a time, I wanted to start a blog. As a gifted procrastinator with a mild aversion to writing, I decided a good first step would be to build out a deployment pipeline such that I could go from version-controlled markdown files to deployed website. Of course I wouldn't want to run a bunch of commands every time I ran an update, so I used CircleCI and AWS CodeDeploy to set up automated deployments triggered by commits to the master branch. Of course I wouldn't want to manually handle all the ops tasks of setting up that AWS env via the console, so I used terraform to create a declarative description of the AWS env to which deployments would occur. At this point, having still not written more than a few words of actual blog post, I tweaked various bits of CSS, Html, added https support, et cetera. Finally, having no excuse not to actually write an article I decided to start by documenting this process.
+Once upon a time, I wanted to start a blog. As a gifted procrastinator with a mild aversion to writing, I decided a good first step would be to build out a deployment pipeline such that I could go from version-controlled markdown files to deployed website. This post will take you through how I did so while also functioning as a somewhat self-deprecating monument to the developer equivalent of constantly tweaking fonts and slide change animations instead of actually working on a presentation.
+
+## The Server
+
+
+## CircleCI
+
+Of course I wouldn't want to run a bunch of commands every time I ran an update, so I used CircleCI and AWS CodeDeploy to set up automated deployments triggered by commits to the master branch. 
+
+## AWS
+
+- introduce code deploy, then introduce terraform
+
+## Keter
+
+Of course I wouldn't want to manually handle all the ops tasks of setting up that AWS env via the console, so I used terraform to create a declarative description of the AWS env to which deployments would occur. 
+
+At this point, having still not written more than a few words of actual blog post, I tweaked various bits of CSS, Html, added https support, et cetera. Finally, having no excuse not to actually write an article I decided to start by documenting this process.
 
 <!--more-->
-
-
-ok, so keter is on the aws box (manually tho) via this
-todo: idk, install script as part of commited code instead of this
-destination: /var/www/keter/incoming
 
 ### First, let's take a look at a high-level sketch of this setup.
 
