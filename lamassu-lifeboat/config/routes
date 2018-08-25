@@ -1,0 +1,13 @@
+-- By default this file is used by `parseRoutesFile` in Foundation.hs
+-- Syntax for this file here: https://www.yesodweb.com/book/routing-and-handlers
+
+
+
+
+
+-- static does not provide index file so have HomeR explicitly on /
+/ HomeR GET
+!/ StaticR Static appStatic
+
+--todo: add api mappings
+-- for now this is just static

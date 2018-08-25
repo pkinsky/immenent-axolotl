@@ -41,4 +41,7 @@ files:
 -- in the meantime, AWS provides tutorials and a wizard for creating a codedeploy deployment group. You should be able to get started by just using the wizard and working with the deployment group it creates for you.
 
 
+ALSO NOW I'M USING KETER YEET YEET GOT THAT SCP STEEZ
+
 [![CircleCI](https://circleci.com/gh/pkinsky/imminent-axolotl/tree/master.svg?style=svg)](https://circleci.com/gh/pkinsky/imminent-axolotl/tree/master)
+
