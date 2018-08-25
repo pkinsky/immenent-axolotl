@@ -59,11 +59,10 @@ I use CircleCi's Github integration to handle continuous integration and deploym
 
 - The AWS resources used to deploy this website are (almost) all configured via terraform, an open source tool that lets you capture AWS service configuration as a series of declarative expressions. I love having a description of my AWS setup in code so I don't have to remember all the setup tasks, commands run, AWS GUI interactions, etc etc.
 
-TODO? better descr?
+TODO? better descr? ADDING STRING TO TEST DEPLOYMENT
 
 Main components of the AWS setup are:
 
 - an AWS CodeDeploy application, which manages deployment of each revision
 - to a cluster made up of two t3.nano instances running on EC2
 - connected to a domain I own, hikikomorphism.com, via load balancer
-
