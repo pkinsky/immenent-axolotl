@@ -11,7 +11,7 @@ terraform {
 provider "aws" {
   region = "us-west-2"
   shared_credentials_file = "/Users/pk/.aws/credentials"
-  #shared_credentials_file = "/home/pk/.aws/credentials"
+  #shared_credentials_file = "~/.aws/credentials"
   profile = "default"
 }
 
@@ -194,7 +194,7 @@ resource "aws_instance" "example-2" {
       user     = "admin"
       # TODO: not this - can I ref key in aws instead of local?
       #private_key =  "${file("/home/pk/dev/keys/imminent-axolotl.pem")}"
-      private_key =  "${file("/Users/pk/dev/keys/imminent-axolotl.pem")}"
+      private_key =  "${file("~/dev/keys/imminent-axolotl.pem")}"
     }
   }
 
@@ -229,7 +229,7 @@ resource "aws_instance" "example-1" {
       user     = "admin"
       # TODO: not this - can I ref key in aws instead of local?
       #private_key =  "${file("/home/pk/dev/keys/imminent-axolotl.pem")}"
-      private_key =  "${file("/Users/pk/dev/keys/imminent-axolotl.pem")}"
+      private_key =  "${file("~/dev/keys/imminent-axolotl.pem")}"
     }
   }
 

@@ -43,7 +43,7 @@ At this point, having still not written more than a few words of actual blog pos
 
 todo: probably rename
 
-`/lamassu-lifeboat` 
+`/yesod-server` 
 
 Someday I might want to throw together some dynamic server-side content, so I host the static content generated in the previous step using Yesod, a haskell server framework that provides routing, etc, etc. It also has great integration with Keter, which I use to (descr descr)
 
@@ -63,7 +63,7 @@ TODO? better descr?
 
 Main components of the AWS setup are:
 
-- an AWS CodeDeploy application
-- used to deploy to a cluster of EC2 boxen
-- all connected to a domain I own via route 53
+- an AWS CodeDeploy application, which manages deployment of each revision
+- to a cluster made up of two t3.nano instances running on EC2
+- connected to a domain I own, hikikomorphism.com, via load balancer
 

@@ -19,12 +19,13 @@ jobs:
             mv lamassu-lifeboat.keter ../aws-code-deploy/lamassu-lifeboat.keter
             popd
 
-      #store revision in cache for use by deploy step of same workflow
-      - save_cache:
-          key: revision-{{ .Branch }}-{{ .Revision }}
+    
+      #store revision in workspace for use by deploy step of same workflow
+      - persist_to_workspace:
+          root: aws-code-deploy
           paths:
-            - "aws-code-deploy"
-
+            - lamassu-lifeboat.keter
+            - appspec.yml
 
   deploy-job:
     docker:
@@ -40,10 +41,9 @@ jobs:
             ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 
 
-      # grab cached static site (build artifacts), could also be used to pass along binaries
-      - restore_cache:
-          keys:
-            - revision-{{ .Branch }}-{{ .Revision }}
+      # grab deployable .keter build artifacts from workspace
+      - attach_workspace:
+          at: aws-code-deploy
 
       - run:
           # inline aws deploy script, this way no need for checkout for this job
