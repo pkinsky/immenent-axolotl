@@ -26,6 +26,18 @@ At this point, having still not written more than a few words of actual blog pos
 
 ### First, let's take a look at a high-level sketch of this setup.
 
+
+## NOTES
+
+just created a second ec2 node using same provisioner stuff, now failing with
+
+> The hostname you have provided, ec2-54-191-225-128.us-west-2.compute.amazonaws.com, is not recognized.
+
+
+
+
+## END NOTES
+
 (ASCII diagram with Github -> CircleCI -> AWS CodeDeploy deployment group)
 
 
