@@ -291,7 +291,7 @@ resource "aws_lb_target_group_attachment" "example-1" {
 
 resource "aws_lb_target_group_attachment" "example-2" {
   target_group_arn = "${aws_lb_target_group.example.arn}"
-  target_id        = "${aws_instance.example-1.id}"
+  target_id        = "${aws_instance.example-2.id}"
   port             = 80
 }
 
