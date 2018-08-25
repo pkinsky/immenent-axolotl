@@ -175,8 +175,8 @@ resource "aws_codedeploy_deployment_group" "example" {
 
 # basically just cargo culted from demo example created stuff
 resource "aws_instance" "example-2" {
-  ami           = "ami-fde96b9d"
-  instance_type = "t2.micro"
+  ami           = "ami-0776d02f10dd9661f"
+  instance_type = "t3.nano"
 
   vpc_security_group_ids    = ["${aws_security_group.example.id}"]
 
@@ -208,8 +208,8 @@ resource "aws_instance" "example-2" {
 
 # basically just cargo culted from demo example created stuff
 resource "aws_instance" "example-1" {
-  ami           = "ami-fde96b9d"
-  instance_type = "t2.micro"
+  ami           = "ami-0776d02f10dd9661f"
+  instance_type = "t3.nano"
 
   vpc_security_group_ids    = ["${aws_security_group.example.id}"]
 
