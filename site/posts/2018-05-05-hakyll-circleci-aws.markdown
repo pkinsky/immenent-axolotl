@@ -5,8 +5,14 @@ tags: haskell
 
 Once upon a time, I wanted to start a blog. As a gifted procrastinator with a mild aversion to writing, I decided a good first step would be to build out a deployment pipeline such that I could go from version-controlled markdown files to deployed website. This post will take you through how I did so while also functioning as a somewhat self-deprecating monument to the developer equivalent of constantly tweaking fonts and slide change animations instead of actually working on a presentation.
 
-## The Server
+## Github
 
+describe what's actually in repo
+- lamassu-lifeboat
+-- yesod
+- site
+-- static site stuff
+- terraform
 
 ## CircleCI
 
@@ -14,7 +20,9 @@ Of course I wouldn't want to run a bunch of commands every time I ran an update,
 
 ## AWS
 
-- introduce code deploy, then introduce terraform
+- AWS code deploy
+- used to deploy to a cluster of EC2 boxen
+- all connected to a domain I own via route 53
 
 ## Keter
 
