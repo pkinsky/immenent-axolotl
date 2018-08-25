@@ -75,6 +75,3 @@ workflows:
       - deploy-job:
           requires:
             - build-job
-          filters:
-            branches:
-              only: master

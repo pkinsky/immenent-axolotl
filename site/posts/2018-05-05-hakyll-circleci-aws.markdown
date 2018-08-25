@@ -3,14 +3,15 @@ title: "Hakyll deployment: Github -> CircleCi -> AWS CodeDeploy"
 tags: haskell
 ---
 
-In this post I'll explain how to deploy a Hakyll blog using CircleCI and AWS CodeDeploy. This is meant as an alternative to the standard github.io approach, with the additional benefit of providing some experience that can then be transfered to deploying more complex applications to AWS.
+Once upon a time, I wanted to start a blog. As a gifted procrastinator with a mild aversion to writing, I decided a good first step would be to build out a deployment pipeline such that I could go from version-controlled markdown files to deployed website. Of course I wouldn't want to run a bunch of commands every time I ran an update, so I used CircleCI and AWS CodeDeploy to set up automated deployments triggered by commits to the master branch. Of course I wouldn't want to manually handle all the ops tasks of setting up that AWS env via the console, so I used terraform to create a declarative description of the AWS env to which deployments would occur. At this point, having still not written more than a few words of actual blog post, I tweaked various bits of CSS, Html, added https support, et cetera. Finally, having no excuse not to actually write an article I decided to start by documenting this process.
 
 <!--more-->
 
+outstanding q: wait, am I using keter here still? IIRC I did play with that a bit
 
 ### First, let's take a look at a high-level sketch of this setup.
 
-(diagram with Github -> CircleCI -> AWS CodeDeploy deployment group)
+(ASCII diagram with Github -> CircleCI -> AWS CodeDeploy deployment group)
 
 
 ### Deployment Flow
