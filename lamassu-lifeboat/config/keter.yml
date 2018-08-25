@@ -29,8 +29,6 @@ stanzas:
       # root.
       - hikikomorphism.com
       - www.hikikomorphism.com
-      # so I can debug individual instances
-      # - "*.us-west-2.compute.amazonaws.com"
 
     # Enable to force Keter to redirect to https
     # Can be added to any stanza
