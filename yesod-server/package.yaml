@@ -62,7 +62,7 @@ library:
 
 # Runnable executable for our application
 executables:
-  yessod-server:
+  yesod-server:
     main: main.hs
     source-dirs: app
     ghc-options:
