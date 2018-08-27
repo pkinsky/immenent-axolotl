@@ -39,16 +39,15 @@ stanzas:
     # Uncomment to turn on directory listings.
     # directory-listing: true
 
-  # Redirect plain domain name to www.
-  # TODO: actually maybe vice versa..
-  # - type: redirect
+  # Redirect www.hikikomorphism.com to hikikomorphism.com.
+  - type: redirect
 
-  #   hosts:
-  #     - hikikomorphism.com
-  #   actions:
-  #     - host: www.hikikomorphism.com
-        # secure: false
-        # port: 80
+    hosts:
+      - hikikomorphism.com
+    actions:
+      - host: www.hikikomorphism.com
+        secure: false
+        port: 80
 
     # Uncomment to switch to a non-permanent redirect.
     # status: 303

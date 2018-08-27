@@ -18,4 +18,4 @@ cabal.sandbox.config
 *.keter
 *~
 \#*
-lamassu-lifeboat.cabal
+yesod-server.cabal
