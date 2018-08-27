@@ -20,3 +20,6 @@ publish tagged image to dockerhub
 ```
 docker push pkinsky/circleci:imminent-axolotl
 ```
+
+
+todo: clean up img setup, uses like 3x diff GHC, etc
