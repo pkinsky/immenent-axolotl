@@ -16,8 +16,7 @@ jobs:
             stack build
             #whoops, yesod not on path in docker img. TODO: rebuild w/ it on path
             /root/.local/bin/yesod keter
-            mv lamassu-lifeboat.keter ../aws-code-deploy/lamassu-lifeboat.keter
-            ls -altrh ../aws-code-deploy
+            mv yesod-server.keter ../aws-code-deploy/yesod-server.keter
             popd
 
     
@@ -25,7 +24,7 @@ jobs:
       - persist_to_workspace:
           root: aws-code-deploy
           paths:
-            - lamassu-lifeboat.keter
+            - yesod-server.keter
             - appspec.yml
 
   deploy-job:
@@ -55,8 +54,6 @@ jobs:
             S3Bucket="imminent-axolotl"
             S3Key="revisions/imminent-axolotl-app-$timestamp.zip"
             S3Loc="s3://$S3Bucket/$S3Key"
-
-            ls -altrh aws-code-deploy
 
             aws deploy push \
               --application-name imminent-axolotl-tf \

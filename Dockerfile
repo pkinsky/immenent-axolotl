@@ -9,7 +9,7 @@ RUN apt-get update && \
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US
 
-COPY site /site-for-prebuild
+COPY static-content /site-for-prebuild
 
 RUN cd /site-for-prebuild && \
     stack --no-terminal --install-ghc setup && \
