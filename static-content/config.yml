@@ -1,7 +1,7 @@
 general:
-  base_url: "example.com"
-  head_title: "Materialize Hakyll"
-  site_title: "Materialize Hakyll"
+  base_url: "hikikomorphism.com"
+  head_title: "Hikikomorphism"
+  site_title: "Hikikomorphism"
   paginate: 7
 
 # Colour (css class, see: http://materializecss.com/color.html)
@@ -16,8 +16,8 @@ style:
   navbar_text_colour_mobile: "waves-effect waves-teal black-text"
 
 feed:
-  title: "Materialize Hakyll"
+  site_title: "Hikikomorphism"
   description: "This website uses a theme that is a fork of [materialize-hakyll](https://github.com/futtetennista/materialize-hakyll)"
   author_name: "pkinsky"
   author_email: "pkinsky@gm__l.com"
-  root: "https://example.com"
+  root: "https://hikikomorphism.com"
