@@ -1,4 +1,4 @@
-name:    lamassu-lifeboat
+name:    yesod-server
 version: "0.0.0"
 
 dependencies:
@@ -62,7 +62,7 @@ library:
 
 # Runnable executable for our application
 executables:
-  lamassu-lifeboat:
+  yessod-server:
     main: main.hs
     source-dirs: app
     ghc-options:
@@ -70,7 +70,7 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - lamassu-lifeboat
+    - yesod-server
     when:
     - condition: flag(library-only)
       buildable: false

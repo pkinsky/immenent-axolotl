@@ -15,7 +15,7 @@ RUN cd /site-for-prebuild && \
     stack --no-terminal --install-ghc setup && \
     stack build --no-terminal --only-dependencies
 
-COPY lamassu-lifeboat /yesod-site-for-prebuild
+COPY yesod-server /yesod-site-for-prebuild
 
 RUN cd /yesod-site-for-prebuild && \
     stack build --no-terminal --only-dependencies

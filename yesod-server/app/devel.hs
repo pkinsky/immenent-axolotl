@@ -1,5 +1,5 @@
 {-# LANGUAGE PackageImports #-}
-import "lamassu-lifeboat" Application (develMain)
+import "yesod-server" Application (develMain)
 import Prelude (IO)
 
 main :: IO ()

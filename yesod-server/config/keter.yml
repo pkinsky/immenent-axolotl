@@ -17,8 +17,8 @@ stanzas:
     #
     # The path given is for Stack projects. If you're still using cabal, change
     # to
-    # exec: ../dist/build/lamassu-lifeboat/lamassu-lifeboat
-    exec: ../dist/bin/lamassu-lifeboat
+    # exec: ../dist/build/yesod-server/yesod-server
+    exec: ../dist/bin/yesod-server
 
     # Command line options passed to your application.
     args: []
@@ -35,13 +35,6 @@ stanzas:
     # using nonstandard value of true, #yolo
     #todo reset to true
     requires-secure: false
-
-  # could maybe just delete this..
-  # Static files.
-  # - type: static-files
-  #   hosts:
-  #     - static.lamassu-lifeboat.com
-  #   root: ../static
 
     # Uncomment to turn on directory listings.
     # directory-listing: true
